@@ -1,0 +1,26 @@
+<!-- post.html -->
+{% extends 'default.html' %}
+
+{% block title %}
+{{ post.title }}
+{% endblock title %}
+
+{% block content %}
+
+<h1>{{ post.title }}</h1>
+<h3>Дата создание: {% current_time '%b %d %Y' %}</h3>
+<p>{{ post.content }}</p>
+
+
+
+<form method="post" action="{% url 'post-detail' pk=post.pk %}">
+  {% csrf_token %}
+  <label for="rating">Rating:</label>
+  <input type="number" name="rating" id="rating" min="0" max="5">
+  <button type="submit">Submit Rating</button>
+</form>
+
+{% if post.rating %}
+  <p>Rating: {{ post.rating }}</p>
+{% endif %}
+{% endblock content %}
